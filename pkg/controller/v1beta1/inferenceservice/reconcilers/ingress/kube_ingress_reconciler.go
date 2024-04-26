@@ -247,6 +247,14 @@ func createRawIngress(scheme *runtime.Scheme, isvc *v1beta1.InferenceService,
 			Name:        isvc.ObjectMeta.Name,
 			Namespace:   isvc.ObjectMeta.Namespace,
 			Annotations: isvc.Annotations,
+			OwnerReferences: []metav1.OwnerReference{
+				{
+					APIVersion: isvc.APIVersion,
+					Kind:       isvc.Kind,
+					Name:       isvc.Name,
+					UID:        isvc.UID,
+				},
+			},
 		},
 		Spec: netv1.IngressSpec{
 			IngressClassName: ingressConfig.IngressClassName,
